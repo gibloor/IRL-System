@@ -19,6 +19,10 @@
   width: 500px;
 }
 
+.bigNotification {
+  width: 900px;
+}
+
 .background {
   position: absolute;
   width: calc(100% - 10px);
@@ -48,12 +52,12 @@
   padding: 7.5px 40px;
 }
 
-.type_warning {
+.typeWarning {
   --color: #f60002;
   color: var(--color);
   display: flex;
 }
-.warning_symbol {
+.warningSymbol {
   border: 2px solid var(--color);
   border-radius: 100px;
   width: 50px;
@@ -63,7 +67,7 @@
     1px 1px 2px #f600007c;
 }
 
-.message_container {
+.messageContainer {
   display: flex;
   flex-direction: column;
   gap: 10px;

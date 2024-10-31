@@ -1,0 +1,29 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon {
+  fill: #4bd2dd;
+  transition: fill 0.3s ease, filter 0.3s ease;
+}
+
+.iconWrapper:hover .icon,
+.active .icon {
+  fill: #f0ffff;
+  filter: 
+    drop-shadow(0 0 5px #4bd2dd)
+    drop-shadow(0 0 10px #4bd2dd)
+    drop-shadow(0 0 20px #4bd2dd);
+}

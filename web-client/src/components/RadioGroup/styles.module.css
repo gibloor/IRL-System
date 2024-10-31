@@ -1,0 +1,79 @@
+.radioGroup {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.radioLabel {
+  position: relative;
+  cursor: pointer;
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radioButton {
+  display: inline-block;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 25px;
+  color: #f0ffff;
+  border: 2px solid #4bd2dd;
+  background-color: #00555a;
+  border-radius: 5px;
+  position: relative;
+  
+  text-shadow: 
+    0 0 5px #4bd2dd,
+    0 0 10px #4bd2dd,
+    0 0 20px #4bd2dd,
+    0 0 40px #4bd2dd,
+    0 0 80px #4bd2dd,
+    1px 1px 2px #4bd1dd81;
+
+  --b: 4px;
+  --r: 5px;
+  --c: 10px;
+
+  transition: color 0.3s ease, border-color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.radioButton::before {
+  position: absolute;
+  inset: calc(-1*var(--b));
+  border: 4px solid white;
+  border-radius: var(--r);
+  background: linear-gradient(orange, deeppink, purple) border-box;
+  --corner: 
+    conic-gradient(from -90deg at var(--c) var(--c), red 25%, #0000 0) 
+      0 0/ calc(100% - var(--c))  calc(100% - var(--c)) border-box;
+  --inner: conic-gradient(red 0 0) padding-box;
+  -webkit-mask: var(--corner), var(--inner);
+  -webkit-mask-composite: source-out;
+          mask: var(--corner) subtract, var(--inner);
+  content: '';
+}
+
+.radioInput:checked + .radioButton {
+  color: #fffcfc;
+  border-color: white;
+  text-shadow: 
+    0 0 5px #f0ffff,
+    0 0 10px #f0ffff,
+    0 0 20px #f0ffff,
+    1px 1px 2px #f0ffff79;
+}
+
+.radioInput:not(:checked) + .radioButton:hover {
+  color: #fffcfc;
+  border-color: white;
+  text-shadow: 
+    0 0 5px #f0ffff,
+    0 0 10px #f0ffff,
+    0 0 20px #f0ffff,
+    1px 1px 2px #f0ffff79;
+}

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import TokenAuthorization from "./TokenAuthorization";
 
 import "./globals.css";
 
@@ -28,7 +27,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <TokenAuthorization />
         {children}
       </body>
     </html>

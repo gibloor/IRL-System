@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 
 import styles from "./styles.module.css"
 
-export type NotificationType = 'regular' | 'instruction' | 'characteristics' | 'message' | 'reward' | 'warning'
+export type NotificationType = 'regular' | 'instruction' | 'characteristics' | 'message' | 'reward' | 'warning' | 'create-character'
 type HighlightType = 'positive' | 'negative' | 'medium'
 
 export interface HighlightedWord {
@@ -42,19 +42,20 @@ const NotificationTemplate = (props: NotificationTemplateProps) => {
   const { type, children } = props
 
   return (
-    <div className={styles.notification}>
+    <div className={`${styles.notification} ${type === 'create-character' ? styles.bigNotification : null}`}>
       <div className={styles.background} />
       <div className={styles.buttons}>
         x
       </div>
-      <div className={styles.message_container}>
+      <div className={styles.messageContainer}>
         <p className={styles.type}>
           {type === 'characteristics' ? <span></span> :
            type === 'instruction' ? <span></span> :
            type === 'message' ? <span></span> :
            type === 'regular' ? <span>ⓘ NOTIFICATION</span> :
            type === 'reward' ? <span></span> :
-           type === 'warning' ? <span className={styles.type_warning}> <span className={styles.warning_symbol}>!</span>&nbsp;WARNING</span> :
+           type === 'warning' ? <span className={styles.typeWarning}> <span className={styles.warningSymbol}>!</span>&nbsp;WARNING</span> :
+           type === 'create-character' ? <span> CREATE CHARACTER </span> :
            <span> {type} type isn't provided</span>
           }
         </p>

@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const sequelize = new Sequelize('desil-apartments', 'admin', 'admin', {
+const sequelize = new Sequelize('irl-system', 'admin', 'admin', {
   host: 'localhost',
   dialect: 'postgres',
   port: 5444,

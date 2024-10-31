@@ -1,0 +1,62 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.input {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #f0ffff;
+  background-color: #00555a;
+  border: 2px solid #4bd2dd;
+  border-radius: 5px;
+  position: relative;
+  outline: none;
+  transition: all 0.3s ease;
+
+  --b: 4px;
+  --r: 5px;
+  --c: 10px;
+}
+
+.input::placeholder {
+  color: #4bd2dd;
+  opacity: 0.6;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.input:focus {
+  border-color: white;
+  box-shadow: 
+    0 0 5px #4bd2dd,
+    0 0 10px #4bd2dd,
+    0 0 20px #4bd2dd;
+}
+
+.input::before {
+  position: absolute;
+  inset: calc(-1*var(--b));
+  border: 4px solid white;
+  border-radius: var(--r);
+  background: linear-gradient(orange, deeppink, purple) border-box;
+  --corner: 
+    conic-gradient(from -90deg at var(--c) var(--c), red 25%, #0000 0) 
+      0 0/ calc(100% - var(--c))  calc(100% - var(--c)) border-box;
+  --inner: conic-gradient(red 0 0) padding-box;
+  -webkit-mask: var(--corner), var(--inner);
+  -webkit-mask-composite: source-out;
+          mask: var(--corner) subtract, var(--inner);
+  content: '';
+}
