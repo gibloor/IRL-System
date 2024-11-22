@@ -7,6 +7,8 @@ interface InputProps {
   type?: 'text' | 'number' | 'email' | 'password';
   value: string | number;
   onChange: (value: string) => void;
+  label?: string;
+  width?: number;
 }
 
 const Input = (props: InputProps) => {
@@ -14,7 +16,9 @@ const Input = (props: InputProps) => {
     placeholder, 
     type = 'text', 
     value,
-    onChange 
+    label,
+    onChange,
+    width,
   } = props  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,12 +28,18 @@ const Input = (props: InputProps) => {
 
   return (
     <div className={styles.inputWrapper}>
+      {label ?
+        <label className={styles.label}>
+          {label}
+        </label> : null
+      }
       <input 
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
         className={styles.input}
+        style={{ width: width ? `${width}px`: '225px'}}
       />
     </div>
   );

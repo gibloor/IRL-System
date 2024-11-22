@@ -36,6 +36,34 @@ a {
   text-decoration: none;
 }
 
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon {
+  fill: #4bd2dd;
+  transition: fill 0.3s ease, filter 0.3s ease;
+}
+
+.icon-container {
+  width: 250px;
+  height: 100%;
+}
+
+.icon-container:hover .icon,
+.icon-wrapper:hover .icon,
+.active .icon {
+  fill: #f0ffff;
+  filter: 
+    drop-shadow(0 0 5px #4bd2dd)
+    drop-shadow(0 0 5px #4bd2dd);
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

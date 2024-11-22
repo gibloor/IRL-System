@@ -1,9 +1,10 @@
 version: "3.8"
+name: irl-system
 
 services:
   db:
     image: postgres:16
-    container_name: irl-system
+    container_name: postgresql
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin

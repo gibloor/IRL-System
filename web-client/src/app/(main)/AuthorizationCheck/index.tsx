@@ -2,27 +2,25 @@
 
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import axios from 'axios'
-import ChoiceNotification from '@/components/Notifications/ChoiceNotification'
-import styles from './styles.module.css'
+import { useSelector } from 'react-redux'
 
-const TokenAuthorization = () => {
+import ChoiceNotification from '@/components/Notifications/ChoiceNotification'
+
+import styles from './styles.module.css'
+import { selectAuth, selectUser } from '@/redux/selectors/authSelectors'
+
+const AuthorizationCheck = () => {
+  const authorization = useSelector(selectAuth)
   const [showWarning, setShowWarning] = useState(false)
 
   const router = useRouter()
   
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    const response = {data: false} //axios.post('')
-
-    if (response.data) {
-
-    } else {
-      setShowWarning(true)
+    if (!authorization.loading) {
+      console.log(authorization)
+      setShowWarning(!authorization.user)
     }
-    
-  }, [])
-  
+  }, [authorization.user, authorization.loading])
 
   return (
     showWarning ?
@@ -38,4 +36,4 @@ const TokenAuthorization = () => {
   )
 }
 
-export default TokenAuthorization
+export default AuthorizationCheck

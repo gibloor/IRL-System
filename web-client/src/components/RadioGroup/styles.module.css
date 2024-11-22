@@ -1,7 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
 .radioGroup {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .radioLabel {
@@ -16,7 +28,10 @@
 }
 
 .radioButton {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 5px 20px;
   text-transform: uppercase;
   font-weight: 600;
@@ -26,6 +41,7 @@
   background-color: #00555a;
   border-radius: 5px;
   position: relative;
+  height: 100%;
   
   text-shadow: 
     0 0 5px #4bd2dd,
@@ -39,7 +55,11 @@
   --r: 5px;
   --c: 10px;
 
-  transition: color 0.3s ease, border-color 0.3s ease, text-shadow 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.radioButtonContent {
+  text-align: center;
 }
 
 .radioButton::before {
@@ -58,7 +78,7 @@
   content: '';
 }
 
-.radioInput:checked + .radioButton {
+.radioInput:checked + .radioButton, .radioButton:hover {
   color: #fffcfc;
   border-color: white;
   text-shadow: 
@@ -68,12 +88,28 @@
     1px 1px 2px #f0ffff79;
 }
 
-.radioInput:not(:checked) + .radioButton:hover {
-  color: #fffcfc;
-  border-color: white;
-  text-shadow: 
-    0 0 5px #f0ffff,
-    0 0 10px #f0ffff,
-    0 0 20px #f0ffff,
-    1px 1px 2px #f0ffff79;
+.radioLabelDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.disabledOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.disabledReason {
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 24px;
+  text-align: center;
 }

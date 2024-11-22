@@ -1,0 +1,173 @@
+.container {
+  margin-bottom: 1rem;
+  width: 350px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  color: white;
+}
+
+.value {
+  font-family: monospace;
+  font-size: 20px;
+}
+
+.value.normal {
+  color: #22d3ee;
+  filter: drop-shadow(0 0 10px rgba(75,210,221,0.8));
+}
+
+.value.overmax {
+  color: #fde047;
+  filter: drop-shadow(0 0 10px rgba(255,215,0,0.8));
+}
+
+.progressContainer {
+  position: relative;
+  height: 1.5rem;
+  background-color: #111827;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.progressContainer.normal {
+  border: 2px solid #22d3ee;
+  box-shadow: 0 0 10px rgba(75,210,221,0.5), inset 0 0 10px rgba(75,210,221,0.5);
+}
+
+.progressContainer.overmax {
+  border: 2px solid #fde047;
+  box-shadow: 0 0 10px rgba(255,215,0,0.5), inset 0 0 10px rgba(255,215,0,0.5);
+  animation: pulseShadow 2s infinite;
+}
+
+.progressBar {
+  height: 100%;
+  transition: all 0.3s ease-out;
+  position: relative;
+}
+
+.progressBar.normal {
+  background-color: #0891b2;
+}
+
+.progressBar.overmax {
+  background: linear-gradient(to right, #fbbf24, #f59e0b);
+}
+
+.progressBar.increasing {
+  background-color: #22c55e;
+}
+
+.progressBar.decreasing {
+  background-color: #ef4444;
+}
+
+.shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  animation: shine 2s infinite;
+}
+
+.glowEffect {
+  position: absolute;
+  inset: 0;
+  animation: pulse 2s infinite;
+}
+
+.glowEffect.overmax {
+  background: linear-gradient(
+    to right,
+    rgba(253, 224, 71, 0.4),
+    rgba(234, 179, 8, 0.4)
+  );
+}
+
+.glowEffect.increase {
+  background-color: rgba(34, 197, 94, 0.3);
+}
+
+.glowEffect.decrease {
+  background-color: rgba(239, 68, 68, 0.3);
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+}
+
+.button.decrease {
+  background-color: #dc2626;
+  border: 1px solid #ef4444;
+  box-shadow: 0 0 10px rgba(248,113,113,0.5);
+}
+
+.button.decrease:hover {
+  background-color: #b91c1c;
+}
+
+.button.increase {
+  background-color: #16a34a;
+  border: 1px solid #22c55e;
+  box-shadow: 0 0 10px rgba(74,222,128,0.5);
+}
+
+.button.increase:hover {
+  background-color: #15803d;
+}
+
+.buttonContainer {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulseShadow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255,215,0,0.5),
+                0 0 20px rgba(255,215,0,0.3),
+                inset 0 0 10px rgba(255,215,0,0.5);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255,215,0,0.8),
+                0 0 30px rgba(255,215,0,0.5),
+                inset 0 0 15px rgba(255,215,0,0.8);
+  }
+}

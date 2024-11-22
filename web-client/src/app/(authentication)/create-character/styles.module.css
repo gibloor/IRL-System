@@ -5,25 +5,33 @@
   justify-content: center;
   align-items: center;
 }
-.iconWrapper {
-  display: inline-flex;
-  align-items: center;
+
+.template {
+  gap: 20px;
+}
+
+.baseInfo {
+  display: flex;
+  gap: 30px;
   justify-content: center;
-  padding: 8px;
-  cursor: pointer;
-  position: relative;
 }
 
-.icon {
-  fill: #4bd2dd;
-  transition: fill 0.3s ease, filter 0.3s ease;
+.inputs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  flex-grow: 0;
+  width: 500px;
+}
+.inputs > div {
+  width: 45%;
 }
 
-.iconWrapper:hover .icon,
-.active .icon {
-  fill: #f0ffff;
-  filter: 
-    drop-shadow(0 0 5px #4bd2dd)
-    drop-shadow(0 0 10px #4bd2dd)
-    drop-shadow(0 0 20px #4bd2dd);
+.genders {
+  display: flex;
+}
+
+.classesContainer {
+  height: 150px;
 }

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import TokenAuthorization from "./TokenAuthorization";
+import AuthorizationCheck from "./AuthorizationCheck";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +14,7 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <TokenAuthorization />
+      <AuthorizationCheck />
       {children}
     </>
   );

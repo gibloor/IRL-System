@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react'
 
 import styles from "./styles.module.css"
 
-export type NotificationType = 'regular' | 'instruction' | 'characteristics' | 'message' | 'reward' | 'warning' | 'create-character'
+export type NotificationType = 'regular' | 'instruction' | 'characteristics' | 'message' | 'reward' | 'warning' | 'create-character' | 'authorize'
 type HighlightType = 'positive' | 'negative' | 'medium'
 
 export interface HighlightedWord {
@@ -13,6 +13,7 @@ export interface HighlightedWord {
 interface NotificationTemplateProps {
   type: NotificationType
   children: ReactNode
+  className?: string
 }
 
 const HIGHLIGHT_COLORS: Record<HighlightType, string> = {
@@ -39,15 +40,17 @@ export const renderMessage = (highlightedWords: HighlightedWord[], text: string)
 };
 
 const NotificationTemplate = (props: NotificationTemplateProps) => {
-  const { type, children } = props
+  const { type, children, className } = props
 
   return (
     <div className={`${styles.notification} ${type === 'create-character' ? styles.bigNotification : null}`}>
       <div className={styles.background} />
-      <div className={styles.buttons}>
-        x
-      </div>
-      <div className={styles.messageContainer}>
+      {type === 'create-character' || type === 'authorize' ? null :
+        <div className={styles.buttons}>
+          x
+        </div>
+      }
+      <div className={`${styles.messageContainer} ${className}`}>
         <p className={styles.type}>
           {type === 'characteristics' ? <span></span> :
            type === 'instruction' ? <span></span> :
@@ -56,6 +59,7 @@ const NotificationTemplate = (props: NotificationTemplateProps) => {
            type === 'reward' ? <span></span> :
            type === 'warning' ? <span className={styles.typeWarning}> <span className={styles.warningSymbol}>!</span>&nbsp;WARNING</span> :
            type === 'create-character' ? <span> CREATE CHARACTER </span> :
+           type === 'authorize' ? <span> AUTHORIZE </span> :
            <span> {type} type isn't provided</span>
           }
         </p>
