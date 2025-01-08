@@ -45,7 +45,6 @@ function* authSaga(action: AuthAction): Generator<any, void, AxiosResponse<AuthP
   if (action.type === AUTH_SIGN_OUT) {
     try {
       localStorage.removeItem('token')
-      yield put(signOut())
     } catch (err: any) {
       console.error(err)
     }

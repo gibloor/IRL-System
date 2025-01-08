@@ -4,14 +4,23 @@ import styles from './styles.module.css'
 
 interface ButtonProps {
   text: string
-  onClick: () => void
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void
+  active?: boolean
+  className?: string
+  disabled?: boolean
 }
 
 const Button = (props: ButtonProps) => {
-  const { text, onClick } = props
+  const { text, active, onClick, className, disabled } = props
 
   return (
-    <button className={styles.button} onClick={onClick}>
+    <button
+      disabled={disabled}
+      className={`${styles.button}
+      ${active ? styles.activeButton : null}
+      ${className}`}
+      onClick={onClick}
+    >
       {text}
     </button>
   )

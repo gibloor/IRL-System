@@ -14,7 +14,7 @@ export default function MainLayout({
 }>) {
   return (
     <>
-      <AuthorizationCheck />
+      {/* <AuthorizationCheck /> */}
       {children}
     </>
   );

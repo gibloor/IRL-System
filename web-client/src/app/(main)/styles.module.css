@@ -1,10 +1,11 @@
 .container {
-  height: 100vh;
+  min-height: 100vh;
   padding: 2rem;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: content-box;
 }
 
 .content {
@@ -17,16 +18,22 @@
   margin-bottom: 3rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #fffcfc;
+  color: #ffffff;
   border-color: white;
   text-shadow: 
-    0 0 20px #f0ffff,
-    1px 1px 2px #f0ffff79;
+    0 0 5px #000000,
+    0 0 10px #000000,
+    0 0 20px #000000,
+    0 0 40px #000000,
+    0 0 80px #000000,
+    1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .goals {
   display: flex;
   gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .goalCard {
@@ -41,12 +48,17 @@
 .goalTitle {
   font-size: 1.25rem;
   font-weight: 600;
-  color: white;
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.025em;
   margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid rgba(75, 210, 221, 0.3);
+  text-shadow: 
+    0 0 5px #000000,
+    0 0 15px #000000,
+    0 0 25px #000000,
+    1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .section {
@@ -54,52 +66,55 @@
 }
 
 .sectionTitle {
-  color: white;
+  color: #ffffff;
   font-weight: 500;
   margin-bottom: 0.75rem;
   width: 100%;
   text-align: center;
+  text-shadow: 
+    0 0 5px #000000,
+    0 0 15px #000000,
+    0 0 25px #000000,
+    1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .taskItem {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: rgba(15, 36, 68, 0.5);
   padding: 0.75rem;
   border-radius: 0.25rem;
   margin-bottom: 0.5rem;
 }
 
 .taskTitle {
-  color: #d1d5db;
+  color: #ffffff;
+  text-shadow: 
+    0 0 5px #000000,
+    0 0 15px #000000,
+    0 0 25px #000000,
+    1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .taskProgress {
-  color: #4bd2dd;
-  font-weight: 500;
-}
-
-.progressBar {
-  width: 100%;
-  height: 0.5rem;
-  background-color: rgba(15, 36, 68, 0.5);
-  border-radius: 9999px;
-  margin-top: 0.5rem;
-}
-
-.progressFill {
-  height: 100%;
-  background-color: #4bd2dd;
-  border-radius: 9999px;
-  transition: width 0.3s ease;
+  color: #ffffff;
+  text-shadow: 
+    0 0 5px #000000,
+    0 0 15px #000000,
+    0 0 25px #000000,
+    1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .weeklyProgress {
   text-align: right;
   font-size: 0.875rem;
-  color: #4bd2dd;
+  color: #ffffff;
   margin-top: 0.25rem;
+  text-shadow: 
+    0 0 5px #000000,
+    0 0 15px #000000,
+    0 0 25px #000000,
+    1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .status {
@@ -113,8 +128,24 @@
 
 .statusSuccess {
   color: rgb(74, 222, 128);
+  text-shadow: 
+    0 0 8px rgb(74, 222, 128),
+    0 0 15px rgb(74, 222, 128),
+    0 0 25px rgb(74, 222, 128),
+    1px 1px 2px rgba(74, 222, 128, 0.8);
 }
 
 .statusFail {
   color: rgb(248, 113, 113);
+  text-shadow: 
+    0 0 8px rgb(248, 113, 113),
+    0 0 15px rgb(248, 113, 113),
+    0 0 25px rgb(248, 113, 113),
+    1px 1px 2px rgba(248, 113, 113, 0.8);
+}
+
+.add_task_bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
 }

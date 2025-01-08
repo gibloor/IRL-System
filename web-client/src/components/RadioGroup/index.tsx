@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import styles from './styles.module.css';
 
-interface Option {
+export interface Option {
   value: string;
   label: string;
   icon?: React.ReactNode;
@@ -13,32 +13,48 @@ interface Option {
 interface RadioGroupProps {
   options: Option[];
   name: string;
-  defaultValue?: string;
-  onChange: (value: string) => void;
+  onChange: (value: string | string[]) => void;
   className?: string;
   label?: string;
+  mode?: 'single' | 'multiple'
 }
 
 const RadioGroup = (props: RadioGroupProps) => {
   const { 
     options, 
-    name, 
-    defaultValue, 
+    name,
     onChange, 
     className = '',
-    label
+    label,
+    mode = 'single'
   } = props;
 
-  const [selectedValue, setSelectedValue] = useState<string>(
-    defaultValue ?? options[0]?.value ?? ''
+  const [selectedValue, setSelectedValue] = useState<string | string[]>(
+    mode === 'multiple' ? [options[0]?.value] : options[0]?.value
   );
 
   const handleChange = (value: string, disabled?: boolean): void => {
-    if (!disabled) {
+    if (disabled) return;
+
+    if (mode === 'multiple') {
+      const currentSelected = selectedValue as string[];
+      const newValue = currentSelected.includes(value)
+        ? currentSelected.filter(v => v !== value)
+        : [...currentSelected, value];
+      
+      setSelectedValue(newValue);
+      onChange(newValue);
+    } else {
       setSelectedValue(value);
       onChange(value);
     }
   };
+
+  const isSelected = (value: string) => {
+    return mode === 'multiple'
+      ? (selectedValue as string[]).includes(value)
+      : selectedValue === value;
+  };    
 
   return (
     <div className={styles.container}>
@@ -50,20 +66,20 @@ const RadioGroup = (props: RadioGroupProps) => {
         {options.map(option => (
           <label
             key={option.value} 
-            className={`${styles.radioLabel} ${option.disabled ? styles.radioLabelDisabled : ''} ${option.icon ? 'icon-container' : ''}`}
+            className={`${styles.radioLabel} ${option.disabled ? styles.radioLabelDisabled : ''} ${option.icon ? 'icon-container' : ''} ${isSelected(option.value) ? styles.selected : ''}`}
           >
             <input
-              type="radio"
+              type={mode === 'multiple' ? 'checkbox' : 'radio'}
               name={name}
               value={option.value}
-              checked={selectedValue === option.value}
+              checked={isSelected(option.value)}
               onChange={() => handleChange(option.value, option.disabled)}
               className={styles.radioInput}
               disabled={option.disabled}
             />
             <div className={styles.radioButton}>
               {option.icon && (
-                <div className={`icon-wrapper ${selectedValue === option.value ? 'active' : ''}`}>
+                <div className={`icon-wrapper ${isSelected(option.value) ? 'active' : ''}`}>
                   {option.icon}
                 </div>
               )}

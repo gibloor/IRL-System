@@ -1,5 +1,5 @@
 import React from 'react'
-import NotificationTemplate, { HighlightedWord, renderMessage } from '../NotificationTemplate'
+import NotificationTemplate, { HighlightedWord, renderMessage } from '../WindowTemplate'
 
 interface RegularNotificationProps {
   text: string

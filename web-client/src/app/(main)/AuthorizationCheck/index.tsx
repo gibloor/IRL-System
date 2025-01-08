@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
 
-import ChoiceNotification from '@/components/Notifications/ChoiceNotification'
+import ChoiceNotification from '@/components/Windows/ChoiceNotification'
 
 import styles from './styles.module.css'
 import { selectAuth, selectUser } from '@/redux/selectors/authSelectors'
@@ -16,6 +16,7 @@ const AuthorizationCheck = () => {
   const router = useRouter()
   
   useEffect(() => {
+    console.log(authorization)
     if (!authorization.loading) {
       console.log(authorization)
       setShowWarning(!authorization.user)

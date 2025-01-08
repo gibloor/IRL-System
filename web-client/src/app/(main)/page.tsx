@@ -1,12 +1,32 @@
+'use client'
+
+import { useEffect, useState } from 'react';
+
+import Button from '@/components/Button';
+import WindowTemplate from '@/components/Windows/WindowTemplate';
+import AddTaskMenu from './AddTaskMenu';
+
 import styles from './styles.module.css'
+import { useAuth } from '@/redux/sagas/authSaga';
 
 const Home = () => {
+  const [showAddTaskMenu, setShowAddTaskMenu] = useState(false)
+
   const main_goal = 'Become a moneybag'
 
   const secondary_goals = [
     {
       title: 'Upgrade english to strong B2',
-      active_tasks: [],
+      active_tasks: [
+        {
+          title: 'Read a book',
+          complited: true,
+        },
+        {
+          title: 'Read a second book',
+          complited: false,
+        },    
+      ],
       daily_tasks: [
         {
           title: 'Repeat words',
@@ -33,7 +53,7 @@ const Home = () => {
       title: 'Upgrade Web-developer skills',
       active_tasks: [
         {
-          title: 'Read about React.memo',
+          title: 'Read more about React.memo',
           complited: false,
         }
       ],
@@ -78,81 +98,122 @@ const Home = () => {
     },
   ]
 
+  type AddTaskBarProps = {
+    openMenu: () => void
+    turnOnEdit: () => void
+  }
+
+  const AddTaskBar = (props: AddTaskBarProps) => {
+
+    return (
+      <div className={styles.add_task_bar}>
+         <Button
+          text='add'
+          onClick={props.openMenu}
+         />
+
+         <Button
+          text='change'
+          onClick={props.turnOnEdit}
+         />
+      </div>
+    )
+  }
+
+  const auth = useAuth()
+  // useEffect(() => {
+  //   auth.signOut()
+  // },[])
+
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>
-          {main_goal}
-        </h1>
+    <>
+    <button onClick={(() => auth.signOut())}>
+      logout
+    </button>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          <h1 className={styles.title}>
+            {main_goal}
+          </h1>
 
-        <div className={styles.goals}>
-          {secondary_goals.map((goal, index) => (
-            <div key={index} className={styles.goalCard}>
-              <h2 className={styles.goalTitle}>
-                {goal.title}
-              </h2>
+          <div className={styles.goals}>
+            {secondary_goals.map((goal, index) => (
+              <WindowTemplate
+                size='small' 
+              >
 
-              {goal.active_tasks.length > 0 && (
-                <div className={styles.section}>
-                  <h3 className={styles.sectionTitle}>Active Tasks</h3>
-                  <div>
-                    {goal.active_tasks.map((task, taskIndex) => (
-                      <div key={taskIndex} className={styles.taskItem}>
-                        <span className={styles.taskTitle}>{task.title}</span>
-                        <span className={task.complited ? styles.statusSuccess : styles.statusFail}>
-                          {task.complited ? '✓' : '×'}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {goal.daily_tasks.length > 0 && (
-                <div className={styles.section}>
-                  <h3 className={styles.sectionTitle}>Daily Tasks</h3>
-                  <div>
-                    {goal.daily_tasks.map((task, taskIndex) => (
-                      <div key={taskIndex} className={styles.taskItem}>
-                        <span className={styles.taskTitle}>{task.title}</span>
-                        <span className={styles.taskProgress}>
-                          {task.progress}/{task.goal}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {goal.weekly_tasks.length > 0 && (
-                <div className={styles.section}>
-                  <h3 className={styles.sectionTitle}>Weekly Tasks</h3>
-                  <div>
-                    {goal.weekly_tasks.map((task, taskIndex) => (
-                      <div key={taskIndex} className={styles.taskItem}>
-                        <div className={styles.taskTitle}>{task.title}</div>
-                        <span className={styles.taskProgress}>
-                          {task.progress}/{task.goal}
-                        </span>
-                        <div className={styles.progressBar}>
-                          <div 
-                            className={styles.progressFill}
-                            style={{ width: `${(task.weeklyProgress / task.weeklyGoal) * 100}%` }}
-                          />
+                {goal.active_tasks.length > 0 && (
+                  <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Active Tasks</h3>
+                    <div>
+                      {goal.active_tasks.map((task, taskIndex) => (
+                        <div key={taskIndex} className={styles.taskItem}>
+                          <span className={styles.taskTitle}>{task.title}</span>
+                          <span className={task.complited ? styles.statusSuccess : styles.statusFail}>
+                            {task.complited ? '✓' : '×'}
+                          </span>
                         </div>
-                        <div className={styles.weeklyProgress}>
-                          {task.weeklyProgress}/{task.weeklyGoal} this week
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+
+                    <AddTaskBar
+                      openMenu={() => {}}
+                      turnOnEdit={() => {}}
+                    />
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+
+                {goal.daily_tasks.length > 0 && (
+                  <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Daily Tasks</h3>
+                    <div>
+                      {goal.daily_tasks.map((task, taskIndex) => (
+                        <div key={taskIndex} className={styles.taskItem}>
+                          <span className={styles.taskTitle}>{task.title}</span>
+                          <span className={styles.taskProgress}>
+                            {task.progress}/{task.goal}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <AddTaskBar
+                      openMenu={() => {}}
+                      turnOnEdit={() => {}}
+                    />
+                  </div>
+                )}
+
+                {goal.weekly_tasks.length > 0 && (
+                  <div className={styles.section}>
+                    <h3 className={styles.sectionTitle}>Weekly Tasks</h3>
+                    <div>
+                      {goal.weekly_tasks.map((task, taskIndex) => (
+                        <div key={taskIndex} className={styles.taskItem}>
+                          <div className={styles.taskTitle}>{task.title}</div>
+                          <span className={styles.taskProgress}>
+                            {task.progress}/{task.goal}
+                          </span>
+                          <div className={styles.weeklyProgress}>
+                            {task.weeklyProgress}/{task.weeklyGoal} this week
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    <AddTaskBar
+                      openMenu={() => {}}
+                      turnOnEdit={() => {}}
+                    />
+                  </div>
+                )}
+              </WindowTemplate>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+      <AddTaskMenu />
+    </>
   );
 };
 

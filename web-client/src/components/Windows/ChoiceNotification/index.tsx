@@ -1,16 +1,15 @@
 import React from 'react'
 
 import Button from '@/components/Button'
-import NotificationTemplate, { NotificationType } from '../NotificationTemplate'
+import NotificationTemplate, { WindowType } from '../WindowTemplate'
 
 import styles from './styles.module.css'
 
 interface ChoiceNotificationProps {
   text: string
-  type: NotificationType
   firstOption: () => void
   secondOption: () => void
-
+  type?: WindowType
   authMod?: true
 }
 
@@ -18,9 +17,7 @@ const ChoiceNotification = (props: ChoiceNotificationProps) => {
   const { text, type, firstOption, secondOption, authMod } = props
 
   return (
-    <NotificationTemplate
-      type={type}
-    >
+    <NotificationTemplate type='warning'>
       <div className={styles.container}>
         <p>
           {text}

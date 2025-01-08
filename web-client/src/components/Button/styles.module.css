@@ -41,7 +41,7 @@
   content: '';
 }
 
-.button:hover {
+.button:hover, .activeButton {
   color: #fffcfc;
   border-color: white;
   text-shadow: 

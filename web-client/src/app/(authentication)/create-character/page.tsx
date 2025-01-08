@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 import Input from '@/components/Input'
-import NotificationTemplate from '@/components/Notifications/NotificationTemplate'
+import WindowTemplate from '@/components/Windows/WindowTemplate'
 import RadioGroup from '@/components/RadioGroup'
 import StatProgressBar from '@/components/StatProgressBar'
 import Button from '@/components/Button'
@@ -13,6 +13,9 @@ import { BACKEND_URL } from '@/variables/backend'
 import { useAuth } from '@/redux/sagas/authSaga'
 
 import styles from './styles.module.css'
+import { useSelector } from 'react-redux'
+import { selectUser } from '@/redux/selectors/authSelectors'
+import { useRouter } from 'next/navigation'
 
 const MALE = 'male'
 const FEMALE = 'female'
@@ -30,6 +33,8 @@ const CreateCharacter = () => {
   const [selectedClass, setSelectedClass] = useState('custom');
 
   const auth = useAuth()
+  const user = useSelector(selectUser)
+  const route = useRouter()
 
   const characterClasses = [
     { 
@@ -39,7 +44,9 @@ const CreateCharacter = () => {
     },
     { 
       value: 'programmer', 
-      label: 'Programmer', 
+      label: 'Programmer',
+      disabled: true,
+      disabledReason: 'Coming Soon',
       icon: <ProgrammerIcon /> 
     },
     { 
@@ -93,133 +100,142 @@ const CreateCharacter = () => {
     })
   }
   
+  useEffect(() => {
+    if (user) {
+      route.push('/setup')
+    }
+  }, [user])
+
   return (
     <div className={styles.container}>
-      <NotificationTemplate
-        type='create-character'
-        className={styles.template}
-      >
-        <div className={styles.baseInfo}>
-          <div className={styles.genders}>
-            <div 
-              className={`icon-wrapper ${gender === 'male' ? 'active' : ''}`}
-              onClick={() => setGender(MALE)}
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="60" 
-                height="60" 
-                viewBox="0 0 24 24"
-                className='icon'
+      <div className={styles.windowContainer}>
+        <WindowTemplate
+          title="Create character"
+          className={styles.template}
+          size='unlimited'
+        >
+          <div className={styles.baseInfo}>
+            <div className={styles.genders}>
+              <div 
+                className={`icon-wrapper ${gender === 'male' ? 'active' : ''}`}
+                onClick={() => setGender(MALE)}
               >
-                <path d="M16 2v2h3.586l-3.972 3.972c-1.54-1.231-3.489-1.972-5.614-1.972-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-2.125-.741-4.074-1.972-5.614l3.972-3.972v3.586h2v-7h-7zm-6 20c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/>
-              </svg>
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="60" 
+                  height="60" 
+                  viewBox="0 0 24 24"
+                  className='icon'
+                >
+                  <path d="M16 2v2h3.586l-3.972 3.972c-1.54-1.231-3.489-1.972-5.614-1.972-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-2.125-.741-4.074-1.972-5.614l3.972-3.972v3.586h2v-7h-7zm-6 20c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/>
+                </svg>
+              </div>
+
+              <div 
+                className={`icon-wrapper ${gender === 'female' ? 'active' : ''}`}
+                onClick={() => setGender(FEMALE)}
+              >
+                <svg 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  width="60" 
+                  height="60" 
+                  viewBox="0 0 90 90"
+                  className='icon'
+                >
+                  <path d="M 65.896 50.433 c 11.522 -11.522 11.522 -30.27 0 -41.792 c -11.521 -11.522 -30.27 -11.522 -41.792 0 c -11.522 11.522 -11.522 30.269 0 41.792 C 29.102 55.432 35.461 58.259 42 58.92 v 12.09 H 29.485 v 6.001 H 42 V 90 H 48 V 77.012 h 12.514 v -6.001 H 48 V 58.92 C 54.539 58.259 60.898 55.432 65.896 50.433 z M 28.347 12.885 C 32.939 8.294 38.969 5.998 45 5.998 c 6.031 0 12.061 2.295 16.653 6.886 c 9.182 9.183 9.182 24.123 0 33.306 c -9.183 9.182 -24.124 9.181 -33.305 0 C 19.165 37.008 19.165 22.067 28.347 12.885 z"/>
+                </svg>
+              </div>
             </div>
 
-            <div 
-              className={`icon-wrapper ${gender === 'female' ? 'active' : ''}`}
-              onClick={() => setGender(FEMALE)}
-            >
-              <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width="60" 
-                height="60" 
-                viewBox="0 0 90 90"
-                className='icon'
-              >
-                <path d="M 65.896 50.433 c 11.522 -11.522 11.522 -30.27 0 -41.792 c -11.521 -11.522 -30.27 -11.522 -41.792 0 c -11.522 11.522 -11.522 30.269 0 41.792 C 29.102 55.432 35.461 58.259 42 58.92 v 12.09 H 29.485 v 6.001 H 42 V 90 H 48 V 77.012 h 12.514 v -6.001 H 48 V 58.92 C 54.539 58.259 60.898 55.432 65.896 50.433 z M 28.347 12.885 C 32.939 8.294 38.969 5.998 45 5.998 c 6.031 0 12.061 2.295 16.653 6.886 c 9.182 9.183 9.182 24.123 0 33.306 c -9.183 9.182 -24.124 9.181 -33.305 0 C 19.165 37.008 19.165 22.067 28.347 12.885 z"/>
-              </svg>
+            <div className={styles.inputs}>
+              <Input
+                placeholder="x_Chiros227_x"  
+                value={name} 
+                onChange={(val) => setName(val)}
+                label="Nickname"
+                width={200}
+              />
+
+              <Input 
+                placeholder="Level (age)" 
+                type="number" 
+                value={age} 
+                onChange={(val) => setAge(Number(val))} 
+                label="Level (age)"
+                width={125}
+              />
+
+              
+              <Input 
+                placeholder="bananas@gmail.com"
+                value={email} 
+                onChange={(val) => setEmail(val)} 
+                label="Email"
+              />
+
+              <Input 
+                placeholder="Pochita2COOL"
+                value={password} 
+                onChange={(val) => setPassword(val)} 
+                label="Password"
+              />
             </div>
           </div>
 
-          <div className={styles.inputs}>
-            <Input
-              placeholder="x_Chiros227_x"  
-              value={name} 
-              onChange={(val) => setName(val)}
-              label="Nickname"
-              width={200}
-            />
+          <RadioGroup
+            name=''
+            onChange={(value) => typeof value === 'string' && setSelectedClass(value)}
+            options={characterClasses}
+            className={styles.classesContainer}
+            label='Class'
+          />
 
-            <Input 
-              placeholder="Level (age)" 
-              type="number" 
-              value={age} 
-              onChange={(val) => setAge(Number(val))} 
-              label="Level (age)"
-              width={125}
-            />
+          <RadioGroup
+            name=''
+            onChange={(value) => typeof value === 'string' && setRunDistance(value)}
+            options={[
+              { value: '0', label: 'don\'t know'},
+              { value: '1', label: '1km' },
+              { value: '2', label: '2km' },
+              { value: '3', label: '3km' },
+              { value: '4', label: '4km' },
+              { value: '5', label: '5km' },
+              { value: '10', label: '10km' },
+            ]}
+            label='Max distance at 12km/h'
+          />
+          
+          <RadioGroup
+            name=''
+            onChange={(value) => typeof value === 'string' && setDumbbellWeight(value)}
+            options={[
+              { value: '0', label: 'don\'t know'},
+              { value: '10', label: '10kg' },
+              { value: '12', label: '12kg' },
+              { value: '14', label: '14kg' },
+              { value: '16', label: '16kg' },
+              { value: '32', label: '32kg' },
+            ]}
+            label='Dumbbell weight (3×10)'
+          />
 
-            
-            <Input 
-              placeholder="bananas@gmail.com"
-              value={email} 
-              onChange={(val) => setEmail(val)} 
-              label="Email"
-            />
+          <StatProgressBar
+            label="Stamina"
+            value={stamina}
+          />
+          <StatProgressBar
+            label="Strength"
+            value={strength}
+          />
 
-            <Input 
-              placeholder="Pochita2COOL"
-              value={password} 
-              onChange={(val) => setPassword(val)} 
-              label="Password"
-            />
-          </div>
-        </div>
+          {/* skills */}
 
-        <RadioGroup
-          name=''
-          onChange={(value) => setSelectedClass(value)}
-          options={characterClasses}
-          className={styles.classesContainer}
-          label='Class'
-        />
-
-        <RadioGroup
-          name=''
-          onChange={(value) => setRunDistance(value)}
-          options={[
-            { value: '0', label: 'don\'t know'},
-            { value: '1', label: '1km' },
-            { value: '2', label: '2km' },
-            { value: '3', label: '3km' },
-            { value: '4', label: '4km' },
-            { value: '5', label: '5km' },
-            { value: '10', label: '10km' },
-          ]}
-          label='Max distance at 12km/h'
-        />
-        
-        <RadioGroup
-          name=''
-          onChange={(value) => setDumbbellWeight(value)}
-          options={[
-            { value: '0', label: 'don\'t know'},
-            { value: '10', label: '10kg' },
-            { value: '12', label: '12kg' },
-            { value: '14', label: '14kg' },
-            { value: '16', label: '16kg' },
-            { value: '32', label: '32kg' },
-          ]}
-          label='Dumbbell weight (3×10)'
-        />
-
-        <StatProgressBar
-          label="Stamina"
-          value={stamina}
-        />
-        <StatProgressBar
-          label="Strength"
-          value={strength}
-        />
-
-        {/* skills */}
-
-        <Button
-          text='Create'
-          onClick={() => onCreate()}
-        />
-      </NotificationTemplate>
+          <Button
+            text='Create'
+            onClick={() => onCreate()}
+          />
+        </WindowTemplate>
+      </div>
     </div>
   )
 }

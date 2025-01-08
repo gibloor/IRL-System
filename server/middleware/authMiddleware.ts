@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import { TokenPayload } from '../types/models';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
-const JWT_EXPIRES_IN = '24h';
+const JWT_EXPIRES_IN = '30d';
 
 export interface TokenRequest extends Request {
   user?: TokenPayload;

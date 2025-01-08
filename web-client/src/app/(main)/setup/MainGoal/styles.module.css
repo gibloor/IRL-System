@@ -1,0 +1,131 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+}
+
+.title {
+  margin-bottom: 10px;
+  height: 100px;
+  width: 400px;
+}
+
+.input {
+  font-size: 30px;
+  width: 100%;
+  width: 400px;
+  text-transform: uppercase;
+  box-sizing: border-box;
+}
+
+.inputWrapper {
+  width: 400px;
+}
+
+.adaptWidth {
+  width: 400px;
+  flex: 1;
+  transform-origin: center;
+  animation:
+    adaptWidth 1s 1.75s forwards,
+    moveUp 2s 3s forwards;
+}
+
+.move_input {
+  animation: 
+    fadeBackground 0.6s 0.9s forwards,
+    adaptWidth 1s 1.75s forwards,
+    bright 0.1s 4.95s forwards;
+  display: block;
+}
+
+.hideButton {
+  animation: fadeButton 0.6s 0.9s forwards;
+}
+
+.mainGoal_container {
+  position: relative;
+}
+
+.button {
+  margin-top: 10px;
+}
+
+.absoluteForm {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.absoluteForm > .title, .button {
+  display: none;
+}
+
+.absoluteWrapper {
+  animation: none;
+  transform: scale(1.5);
+  width: var(--content-width);
+}
+
+.absoluteInput {
+  animation: none;
+  background-color: #00565a00;
+  border-color: #4bd2dd00;
+  text-shadow: 
+    0 0 2px #4bd2dd,
+    0 0 4px #4bd2dd,
+    0 0 6px #4bd2dd,
+    1px 1px 2px rgba(75, 210, 221, 0.5);
+  width: var(--content-width);
+  text-indent: 3px;
+}
+
+@keyframes adaptWidth {
+  from {
+    width: 100%;
+  }
+  to {
+    width: var(--content-width);
+    text-indent: 3px;
+  }
+}
+
+@keyframes fadeBackground {
+  to {
+    background-color: #00565a00;
+    border-color: #4bd2dd00; 
+  }
+}
+
+@keyframes bright {
+  to {
+    text-shadow: 
+      0 0 2px #4bd2dd,
+      0 0 4px #4bd2dd,
+      0 0 6px #4bd2dd,
+      1px 1px 2px rgba(75, 210, 221, 0.5);
+  }
+}
+
+@keyframes moveUp {
+  0% {
+  }
+  50% {
+    transform: translateY(calc(-1 * var(--distance-to-top))) scale(1);
+  }
+  90% {
+    transform: translateY(calc(-1 * var(--distance-to-top))) scale(2);
+  }
+  100% {
+    transform: translateY(calc(-1 * var(--distance-to-top))) scale(1.5);
+  }
+}
+
+@keyframes fadeButton {
+  to {
+    opacity: 0;
+  }
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { CSSProperties, KeyboardEvent, RefObject } from 'react';
 
 import styles from './styles.module.css';
 
@@ -8,7 +8,16 @@ interface InputProps {
   value: string | number;
   onChange: (value: string) => void;
   label?: string;
-  width?: number;
+  className?: string;
+  wrapperClassName?: string
+  style?: CSSProperties & {
+    [key: string]: string;
+  };
+  inputRef?: RefObject<HTMLInputElement>
+  disabled?: boolean
+  onFocus?: () => void
+  onBlur?: () => void
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void
 }
 
 const Input = (props: InputProps) => {
@@ -18,7 +27,14 @@ const Input = (props: InputProps) => {
     value,
     label,
     onChange,
-    width,
+    className,
+    wrapperClassName,
+    style,
+    inputRef,
+    disabled,
+    onFocus,
+    onBlur,
+    onKeyDown,
   } = props  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +43,7 @@ const Input = (props: InputProps) => {
   };
 
   return (
-    <div className={styles.inputWrapper}>
+    <div className={`${styles.inputWrapper} ${wrapperClassName}`} style={style}>
       {label ?
         <label className={styles.label}>
           {label}
@@ -38,8 +54,13 @@ const Input = (props: InputProps) => {
         placeholder={placeholder}
         value={value}
         onChange={handleChange}
-        className={styles.input}
-        style={{ width: width ? `${width}px`: '225px'}}
+        className={`${styles.input} ${className}`}
+        ref={inputRef}
+        style={style}
+        disabled={disabled}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={onKeyDown}
       />
     </div>
   );

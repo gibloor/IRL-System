@@ -6,6 +6,12 @@
   align-items: center;
 }
 
+.windowContainer {
+  width: 80%;
+  height: 80%;
+  padding: 50px 0;
+}
+
 .template {
   gap: 20px;
 }
